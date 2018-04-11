@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3D_Prototype", "3D_Prototype\3D_Prototype.csproj", "{7E27C6CF-2710-44FC-A7AB-A8DF66BB76C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E27C6CF-2710-44FC-A7AB-A8DF66BB76C6}.Debug|x86.ActiveCfg = Debug|x86
+		{7E27C6CF-2710-44FC-A7AB-A8DF66BB76C6}.Debug|x86.Build.0 = Debug|x86
+		{7E27C6CF-2710-44FC-A7AB-A8DF66BB76C6}.Release|x86.ActiveCfg = Release|x86
+		{7E27C6CF-2710-44FC-A7AB-A8DF66BB76C6}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BEC8C071-186B-41A8-B3FD-E28BED0783B6}
+	EndGlobalSection
+EndGlobal
