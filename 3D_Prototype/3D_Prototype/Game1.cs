@@ -27,6 +27,8 @@ namespace _3D_Prototype
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            Singleton.Instance.camera = new Camera(graphics.GraphicsDevice.Viewport, 
+                new Vector3(0, 0, 50), new Vector3(0, 0, 0));
 
             base.Initialize();
         }
@@ -75,7 +77,15 @@ namespace _3D_Prototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            
+            spriteBatch.Begin(transformMatrix: Singleton.Instance.camera.GetViewMatrix());
+
             // TODO: Add your drawing code here
+
+
+
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
