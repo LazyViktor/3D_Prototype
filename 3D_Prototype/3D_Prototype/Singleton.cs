@@ -21,6 +21,12 @@ namespace _3D_Prototype
         // Camera
         public Camera camera;
 
+        // Graphics Default Stuff
+        public GraphicsDeviceManager graphics;
+        public SpriteBatch spriteBatch;
+
+        // GameObjects
+        public Ground ground;
 
 
         //Singleton Stuff

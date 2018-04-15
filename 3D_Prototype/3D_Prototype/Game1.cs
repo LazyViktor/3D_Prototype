@@ -9,12 +9,14 @@ namespace _3D_Prototype
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        // ExampleCube for testing purposes
+        Model exampleCube;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Singleton.Instance.graphics = new GraphicsDeviceManager(this);
+            // Singleton.Instance.graphics.IsFullScreen = true;
+
             Content.RootDirectory = "Content";
         }
 
@@ -27,8 +29,16 @@ namespace _3D_Prototype
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Singleton.Instance.camera = new Camera(graphics.GraphicsDevice.Viewport, 
-                new Vector3(0, 0, 50), new Vector3(0, 0, 0));
+
+            Singleton.Instance.camera = new Camera(Singleton.Instance.graphics.GraphicsDevice.Viewport, 
+                new Vector3(0, 0, 5), new Vector3(0, 0, 0));
+
+            Singleton.Instance.ground = new Ground(20);
+
+            //Turn off culling
+            RasterizerState rasterizerState = new RasterizerState();
+            rasterizerState.CullMode = CullMode.None;
+            GraphicsDevice.RasterizerState = rasterizerState;
 
             base.Initialize();
         }
@@ -40,9 +50,15 @@ namespace _3D_Prototype
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Singleton.Instance.spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            exampleCube = Content.Load<Model>("ExampleCube/MonoCube");
+
+            // Ground
+            Singleton.Instance.ground.CheckerboardTexture = Content.Load<Texture2D>("Ground/checkerboard");
+            
         }
 
         /// <summary>
@@ -77,15 +93,15 @@ namespace _3D_Prototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            
-            spriteBatch.Begin(transformMatrix: Singleton.Instance.camera.GetViewMatrix());
+            // To draw any 3D Model simply call the 
+            // DrawModel(Model _model, Vector3 _modelPosition) method
+            // located in the Camera class and accesable through 
+            // the SingletonInstance.camera variable.
 
             // TODO: Add your drawing code here
-
-
-
-
-            spriteBatch.End();
+            
+            Singleton.Instance.ground.Draw();
+            Singleton.Instance.camera.DrawModel(exampleCube, new Vector3(0, 0, 0));
 
             base.Draw(gameTime);
         }
