@@ -27,7 +27,7 @@ namespace _3D_Prototype
         // Camera stats
         float fieldOfView = 90f;
         float nearPlaneDistance = 0.1f;
-        float farPlaneDistance = 100f;
+        float farPlaneDistance = 1000f;
 
 
         public Camera(Viewport _viewport, Vector3 _cameraPosition, Vector3 _targetPosition)
@@ -37,22 +37,19 @@ namespace _3D_Prototype
 
             viewport = _viewport;
 
-            ViewMatrix = Matrix.CreateLookAt(CameraPosition, TargetPosition, Vector3.Up)
-                //* Matrix.CreateRotationY(MathHelper.ToRadians(30f))
-                //* Matrix.CreateRotationX(MathHelper.ToRadians(30f))
-                * Matrix.CreateTranslation(-2, -3, 0);
+            ViewMatrix = Matrix.CreateLookAt(CameraPosition, TargetPosition, Vector3.Up);
 
             ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(fieldOfView),
                 viewport.AspectRatio,
                 nearPlaneDistance, farPlaneDistance);
         }
 
-        public void Update(Vector3 _posWorldTarget)
+        public void Update(float _posWorldTarget_X)
         {
-            TargetPosition = _posWorldTarget;
+            TargetPosition = new Vector3(_posWorldTarget_X, TargetPosition.Y, TargetPosition.Z);
 
             // Move camera in x and y direction corresponding to target
-            CameraPosition = new Vector3(TargetPosition.X, TargetPosition.Y, CameraPosition.Z);
+            CameraPosition = new Vector3(_posWorldTarget_X, CameraPosition.Y, CameraPosition.Z);
 
             // Update viewMatrix accordingly
             ViewMatrix = Matrix.CreateLookAt(CameraPosition, TargetPosition, Vector3.Up);

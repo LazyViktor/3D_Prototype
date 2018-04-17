@@ -10,7 +10,7 @@ namespace _3D_Prototype
     public class Game1 : Game
     {
         // ExampleCube for testing purposes
-        Model exampleCube;
+        //Model exampleCube;
 
         public Game1()
         {
@@ -31,9 +31,12 @@ namespace _3D_Prototype
             // TODO: Add your initialization logic here
 
             Singleton.Instance.camera = new Camera(Singleton.Instance.graphics.GraphicsDevice.Viewport, 
-                new Vector3(0, 0, 5), new Vector3(0, 0, 0));
+                new Vector3(0, 300, 400), new Vector3(0, 0, 0));
+
+            Singleton.Instance.playerCube = new PlayerCube(new Vector3(0, 0, 0));
 
             Singleton.Instance.ground = new Ground(20);
+
 
             //Turn off culling
             RasterizerState rasterizerState = new RasterizerState();
@@ -54,7 +57,10 @@ namespace _3D_Prototype
 
             // TODO: use this.Content to load your game content here
 
-            exampleCube = Content.Load<Model>("ExampleCube/MonoCube");
+            //exampleCube = Content.Load<Model>("ExampleCube/MonoCube");
+
+            // Player
+            Singleton.Instance.playerCube.PlayerModel = Content.Load<Model>("Player/coloredDice");
 
             // Ground
             Singleton.Instance.ground.CheckerboardTexture = Content.Load<Texture2D>("Ground/checkerboard");
@@ -77,10 +83,19 @@ namespace _3D_Prototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            // keyboard update
+            Singleton.Instance.keyboardState = Keyboard.GetState();
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
+
+            Singleton.Instance.playerCube.Update();
+
+            Singleton.Instance.ground.Update();
+
+            Singleton.Instance.camera.Update(Singleton.Instance.playerCube.PlayerPosition.X);
 
             base.Update(gameTime);
         }
@@ -101,7 +116,9 @@ namespace _3D_Prototype
             // TODO: Add your drawing code here
             
             Singleton.Instance.ground.Draw();
-            Singleton.Instance.camera.DrawModel(exampleCube, new Vector3(0, 0, 0));
+            //Singleton.Instance.camera.DrawModel(exampleCube, new Vector3(0, 50, 0));
+
+            Singleton.Instance.playerCube.Draw();
 
             base.Draw(gameTime);
         }

@@ -27,6 +27,13 @@ namespace _3D_Prototype
 
         // GameObjects
         public Ground ground;
+        public PlayerCube playerCube;
+
+        // Controlls
+        public KeyboardState keyboardState;
+
+        // Physics
+        public float G_Force { get; } = 10f;
 
 
         //Singleton Stuff
