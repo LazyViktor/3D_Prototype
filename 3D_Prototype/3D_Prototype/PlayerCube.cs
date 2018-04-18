@@ -18,13 +18,13 @@ namespace _3D_Prototype
         public int Size { get; } = 100; // in x,y,z direction
 
         float currMoveSpeed = 0f;    // for automated forward movement
-        float maxMoveSpeed = 2f;     // speed cap
-        float accelMoveSpeed = 0.1f;   // acceleration for a slow start
+        float maxMoveSpeed = 5f;     // speed cap
+        float accelMoveSpeed = 0.5f;   // acceleration for a slow start
 
         // for jump logic
         bool isJumping = false;
-        float jumpSpeed = 20f;
-        float maxJumpHeightFactored = 2f;   // * size
+        float jumpSpeed = 15f;
+        float maxJumpHeightFactored = 3f;   // * size
 
 
         public PlayerCube(Vector3 _playerPosition)

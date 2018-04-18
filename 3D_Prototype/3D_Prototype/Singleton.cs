@@ -28,13 +28,20 @@ namespace _3D_Prototype
         // GameObjects
         public Ground ground;
         public PlayerCube playerCube;
-        public ObstaclePyramid obstaclePyramid;
+        public ObstacleMap currObstacleMap;
+
+        // MapData
+            // 0 for empty space, 1 for Pyramid
+        public int[] mapDataA = new int[] { 0, 1, 0, 1, 0, 1 };
+
+        // Models
+        public Model obstaclePyramidModel;
 
         // Controlls
         public KeyboardState keyboardState;
 
         // Physics
-        public float G_Force { get; } = 10f;
+        public float G_Force { get; } = 5f;
 
 
         //Singleton Stuff

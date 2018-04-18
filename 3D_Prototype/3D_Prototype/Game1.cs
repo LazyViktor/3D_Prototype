@@ -30,15 +30,19 @@ namespace _3D_Prototype
         {
             // TODO: Add your initialization logic here
 
+            // Camera
             Singleton.Instance.camera = new Camera(Singleton.Instance.graphics.GraphicsDevice.Viewport, 
                 new Vector3(0, 300, 400), new Vector3(0, 0, 0));
 
+            // Player
             Singleton.Instance.playerCube = new PlayerCube(new Vector3(0, 0, 0));
 
-            Singleton.Instance.obstaclePyramid = new ObstaclePyramid(new Vector3(200, 0, 0));
+            // Obstacles
+            Singleton.Instance.currObstacleMap = new ObstacleMap(500f, Singleton.Instance.mapDataA);
 
+            // Ground
             Singleton.Instance.ground = new Ground(20);
-
+            
 
             //Turn off culling
             RasterizerState rasterizerState = new RasterizerState();
@@ -70,7 +74,7 @@ namespace _3D_Prototype
             Singleton.Instance.playerCube.PlayerModel = this.Content.Load<Model>("Player/coloredDice");
 
             // Obstacle
-            Singleton.Instance.obstaclePyramid.ObstacleModel = this.Content.Load<Model>("Obstacle/coloredPyramid");
+            Singleton.Instance.obstaclePyramidModel = this.Content.Load<Model>("Obstacle/coloredPyramid");
 
             // Ground
             Singleton.Instance.ground.CheckerboardTexture = this.Content.Load<Texture2D>("Ground/checkerboard");
@@ -101,12 +105,16 @@ namespace _3D_Prototype
 
             // TODO: Add your update logic here
 
+            // Player
             Singleton.Instance.playerCube.Update();
 
-            //Singleton.Instance.obstaclePyramid.Update();
+            // Obstacles
+            Singleton.Instance.currObstacleMap.Update();
 
+            // Ground
             Singleton.Instance.ground.Update();
 
+            // Camera
             Singleton.Instance.camera.Update(Singleton.Instance.playerCube.PlayerPosition.X);
 
             base.Update(gameTime);
@@ -129,12 +137,15 @@ namespace _3D_Prototype
 
             // TODO: Add your drawing code here
 
+            // Ground
             Singleton.Instance.ground.Draw();
             //Singleton.Instance.camera.DrawModel(exampleCube, new Vector3(0, 50, 0));
 
+            // Player
             Singleton.Instance.playerCube.Draw();
 
-            Singleton.Instance.obstaclePyramid.Draw();
+            // Obstacles
+            Singleton.Instance.currObstacleMap.Draw();
 
             base.Draw(gameTime);
         }

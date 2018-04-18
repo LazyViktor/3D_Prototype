@@ -18,9 +18,10 @@ namespace _3D_Prototype
         float size = 100f;
 
 
-        public ObstaclePyramid(Vector3 _obstaclePosition)
+        public ObstaclePyramid(Vector3 _obstaclePosition, Model _obstacleModel)
         {
-            // Dont forget to load model manuelly in Game1.LoadConten()!
+            // Dont forget to load model into Singleton manuelly in Game1.LoadConten()!
+            ObstacleModel = _obstacleModel;
 
             // Adjusted to make the ground total 0 and
             // to stop model clipping halfway through ground.
