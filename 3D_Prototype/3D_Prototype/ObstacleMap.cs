@@ -69,11 +69,14 @@ namespace _3D_Prototype
             }
 
             // remove obstacles which have been passed by player
-            // with a buffer of 300            
+            // with a buffer of 300 and addScore to HighScore      
             if (ObstacleList.First.Value.ObstaclePosition.X
                 < Singleton.Instance.playerCube.PlayerPosition.X - 300f)
             {
                 ObstacleList.RemoveFirst();
+
+                // add score for one passed obstacle
+                Singleton.Instance.highScoreSystem.AddPoints();
             }
 
             // updating first 10 obstacles

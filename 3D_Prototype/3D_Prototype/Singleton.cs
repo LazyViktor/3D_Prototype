@@ -34,6 +34,9 @@ namespace _3D_Prototype
             // 0 for empty space, 1 for Pyramid
         public int[] mapDataA = new int[] { 0, 1, 0, 1, 0, 1 };
 
+        // HighScoreSystem
+        public HighScoreSystem highScoreSystem;
+
         // Models
         public Model obstaclePyramidModel;
 

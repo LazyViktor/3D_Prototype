@@ -42,6 +42,9 @@ namespace _3D_Prototype
 
             // Ground
             Singleton.Instance.ground = new Ground(20);
+
+            // HighScoreSystem
+            Singleton.Instance.highScoreSystem = new HighScoreSystem();
             
 
             //Turn off culling
@@ -78,6 +81,9 @@ namespace _3D_Prototype
 
             // Ground
             Singleton.Instance.ground.CheckerboardTexture = this.Content.Load<Texture2D>("Ground/checkerboard");
+
+            // HighScoreSystem
+            Singleton.Instance.highScoreSystem.Font = this.Content.Load<SpriteFont>("Fonts/HighScoreFont");
             
         }
 
@@ -137,6 +143,9 @@ namespace _3D_Prototype
 
             // TODO: Add your drawing code here
 
+
+            // 3D Stuff
+
             // Ground
             Singleton.Instance.ground.Draw();
             //Singleton.Instance.camera.DrawModel(exampleCube, new Vector3(0, 50, 0));
@@ -146,6 +155,26 @@ namespace _3D_Prototype
 
             // Obstacles
             Singleton.Instance.currObstacleMap.Draw();
+
+
+            // 2D Stuff
+            Singleton.Instance.spriteBatch.Begin();
+            
+            // HighScoreSystem
+            Singleton.Instance.highScoreSystem.Draw();
+
+            Singleton.Instance.spriteBatch.End();
+
+
+            // Resetting rendering to be able to use 3D again
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
+
+            //Turn off culling
+            RasterizerState rasterizerState = new RasterizerState();
+            rasterizerState.CullMode = CullMode.None;
+            GraphicsDevice.RasterizerState = rasterizerState;
 
             base.Draw(gameTime);
         }
