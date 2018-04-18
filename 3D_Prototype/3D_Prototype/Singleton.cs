@@ -28,6 +28,7 @@ namespace _3D_Prototype
         // GameObjects
         public Ground ground;
         public PlayerCube playerCube;
+        public ObstaclePyramid obstaclePyramid;
 
         // Controlls
         public KeyboardState keyboardState;

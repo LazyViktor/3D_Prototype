@@ -24,7 +24,7 @@ namespace _3D_Prototype
         // for jump logic
         bool isJumping = false;
         float jumpSpeed = 20f;
-        float maxJumpHeightFactored = 2f;
+        float maxJumpHeightFactored = 2f;   // * size
 
 
         public PlayerCube(Vector3 _playerPosition)

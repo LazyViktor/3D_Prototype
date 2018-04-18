@@ -35,6 +35,8 @@ namespace _3D_Prototype
 
             Singleton.Instance.playerCube = new PlayerCube(new Vector3(0, 0, 0));
 
+            Singleton.Instance.obstaclePyramid = new ObstaclePyramid(new Vector3(200, 0, 0));
+
             Singleton.Instance.ground = new Ground(20);
 
 
@@ -55,15 +57,23 @@ namespace _3D_Prototype
             // Create a new SpriteBatch, which can be used to draw textures.
             Singleton.Instance.spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            /* HOW TO HANDLE 3D MODELS:
+            All models 50x50x50 models from Blender
+            need to be scaled by x50 and rotated around
+            the x.axis in -90°. */
+
             // TODO: use this.Content to load your game content here
 
             //exampleCube = Content.Load<Model>("ExampleCube/MonoCube");
 
             // Player
-            Singleton.Instance.playerCube.PlayerModel = Content.Load<Model>("Player/coloredDice");
+            Singleton.Instance.playerCube.PlayerModel = this.Content.Load<Model>("Player/coloredDice");
+
+            // Obstacle
+            Singleton.Instance.obstaclePyramid.ObstacleModel = this.Content.Load<Model>("Obstacle/coloredPyramid");
 
             // Ground
-            Singleton.Instance.ground.CheckerboardTexture = Content.Load<Texture2D>("Ground/checkerboard");
+            Singleton.Instance.ground.CheckerboardTexture = this.Content.Load<Texture2D>("Ground/checkerboard");
             
         }
 
@@ -93,6 +103,8 @@ namespace _3D_Prototype
 
             Singleton.Instance.playerCube.Update();
 
+            //Singleton.Instance.obstaclePyramid.Update();
+
             Singleton.Instance.ground.Update();
 
             Singleton.Instance.camera.Update(Singleton.Instance.playerCube.PlayerPosition.X);
@@ -108,17 +120,21 @@ namespace _3D_Prototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // To draw any 3D Model simply call the 
-            // DrawModel(Model _model, Vector3 _modelPosition) method
-            // located in the Camera class and accesable through 
-            // the SingletonInstance.camera variable.
+            /* HOW TO DRAW 3D MODELS:
+            To draw any 3D Model simply call the
+            DrawModel(Model _model, Vector3 _modelPosition) method
+            located in the Camera class and accesable through
+            the SingletonInstance.camera variable. */
+            
 
             // TODO: Add your drawing code here
-            
+
             Singleton.Instance.ground.Draw();
             //Singleton.Instance.camera.DrawModel(exampleCube, new Vector3(0, 50, 0));
 
             Singleton.Instance.playerCube.Draw();
+
+            Singleton.Instance.obstaclePyramid.Draw();
 
             base.Draw(gameTime);
         }
