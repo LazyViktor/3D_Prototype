@@ -13,9 +13,7 @@ namespace _3D_Prototype
     {
         public LinkedList<ObstaclePyramid> ObstacleList { get; private set; }
             = new LinkedList<ObstaclePyramid>();
-
-        public int[] MapData { private get; set; }
-
+        
         float slotSize = 150f;
 
         float startingPositionX;
@@ -23,15 +21,58 @@ namespace _3D_Prototype
         int positionsCounter = 0;   // tracking number of position generated
 
 
-        public ObstacleMap(float _startingPositionX, int[] _MapData)
+        public ObstacleMap(float _startingPositionX)
         {
             startingPositionX = _startingPositionX;
-            MapData = _MapData;
 
+        }
+
+        public void Reset()
+        {
+            // call on Death
+            ObstacleList.Clear();
+            positionsCounter = 0;
+        }
+
+
+        int[] SelectRandomMapData()
+        {
+            // random generator
+            Random randomGen = new Random();
+
+            // create number 0 >= num < 5
+            int randomNum = randomGen.Next(5);
+
+
+            // selcting acording MapData from Singleton
+            int[] selectedMapData = { };
+
+            switch (randomNum)
+            {
+                case 0:
+                    selectedMapData = Singleton.Instance.MapDataA;
+                    break;
+                case 1:
+                    selectedMapData = Singleton.Instance.MapDataB;
+                    break;
+                case 2:
+                    selectedMapData = Singleton.Instance.MapDataC;
+                    break;
+                case 3:
+                    selectedMapData = Singleton.Instance.MapDataD;
+                    break;
+                case 4:
+                    selectedMapData = Singleton.Instance.MapDataE;
+                    break;
+                default:
+                    break;
+            }
+
+            return selectedMapData;
         }
         
 
-        public void FillObstacleQueue(int [] _MapData)
+        void FillObstacleQueue(int [] _MapData)
         {
             Model obstacleModel = Singleton.Instance.obstaclePyramidModel;
 
@@ -65,7 +106,7 @@ namespace _3D_Prototype
             // filling/refilling ObstacleList
             if (ObstacleList.Count < 10)
             {
-                FillObstacleQueue(MapData);
+                FillObstacleQueue(SelectRandomMapData());
             }
 
             // remove obstacles which have been passed by player
@@ -79,17 +120,12 @@ namespace _3D_Prototype
                 Singleton.Instance.highScoreSystem.AddPoints();
             }
 
-            // updating first 10 obstacles
-            int updateCounter = 0;
-            foreach (ObstaclePyramid obstacle in ObstacleList)
+            // updating up to 10 obstacles
+            for(int updateCounter = 0; updateCounter < 10; updateCounter++)
             {
-                if (updateCounter == 10)
-                {
+                if (updateCounter >= ObstacleList.Count)
                     break;
-                }
-
-                obstacle.Update();
-                updateCounter++;
+                ObstacleList.ElementAt<ObstaclePyramid>(updateCounter).Update();
             }
 
         }

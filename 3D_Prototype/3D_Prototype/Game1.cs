@@ -38,13 +38,21 @@ namespace _3D_Prototype
             Singleton.Instance.playerCube = new PlayerCube(new Vector3(0, 0, 0));
 
             // Obstacles
-            Singleton.Instance.currObstacleMap = new ObstacleMap(500f, Singleton.Instance.mapDataA);
+            Singleton.Instance.currObstacleMap = new ObstacleMap(500f);
 
             // Ground
             Singleton.Instance.ground = new Ground(20);
 
             // HighScoreSystem
             Singleton.Instance.highScoreSystem = new HighScoreSystem();
+
+            // Screens
+            Singleton.Instance.startScreen = new StartScreen();
+            Singleton.Instance.deathScreen = new DeathScreen();
+
+            // GameState
+            Singleton.Instance.currGameState =
+                Singleton.Gamestates.start;
             
 
             //Turn off culling
@@ -84,7 +92,23 @@ namespace _3D_Prototype
 
             // HighScoreSystem
             Singleton.Instance.highScoreSystem.Font = this.Content.Load<SpriteFont>("Fonts/HighScoreFont");
-            
+
+            //// Screens
+
+            // Startscreen
+            Singleton.Instance.startScreen.GameTitleFont = this.Content.Load<SpriteFont>("Fonts/GameTitleFont");
+            Singleton.Instance.startScreen.HeadingsFont = this.Content.Load<SpriteFont>("Fonts/HeadingsFont");
+            Singleton.Instance.startScreen.NormalFont = this.Content.Load<SpriteFont>("Fonts/NormalFont");
+            Singleton.Instance.startScreen.AssigneTextOrigins();
+
+            // Endscreen
+
+            Singleton.Instance.deathScreen.FailFont = this.Content.Load<SpriteFont>("Fonts/GameTitleFont");
+            Singleton.Instance.deathScreen.HeadingsFont = this.Content.Load<SpriteFont>("Fonts/HeadingsFont");
+            Singleton.Instance.deathScreen.NormalFont = this.Content.Load<SpriteFont>("Fonts/NormalFont");
+            Singleton.Instance.deathScreen.AssigneTextOrigins();
+
+
         }
 
         /// <summary>
@@ -111,17 +135,61 @@ namespace _3D_Prototype
 
             // TODO: Add your update logic here
 
-            // Player
-            Singleton.Instance.playerCube.Update();
+            // GameState based Updates
+            switch (Singleton.Instance.currGameState)
+            {
+                case Singleton.Gamestates.start:
+                    break;
+                case Singleton.Gamestates.playing:
+                    
+                        // Player
+                        Singleton.Instance.playerCube.Update();
 
-            // Obstacles
-            Singleton.Instance.currObstacleMap.Update();
+                        // Obstacles
+                        Singleton.Instance.currObstacleMap.Update();
 
-            // Ground
-            Singleton.Instance.ground.Update();
+                        // Ground
+                        Singleton.Instance.ground.Update();
 
-            // Camera
-            Singleton.Instance.camera.Update(Singleton.Instance.playerCube.PlayerPosition.X);
+                        // Camera
+                        Singleton.Instance.camera.Update(
+                            Singleton.Instance.playerCube.PlayerPosition.X);
+
+                        break;
+                    
+                case Singleton.Gamestates.death:
+                    break;
+            }
+
+            // GameState based Transitions
+            switch (Singleton.Instance.currGameState)
+            {
+                case Singleton.Gamestates.start:
+
+                    if (Singleton.Instance.keyboardState.IsKeyDown(Keys.Enter))
+                    {
+                        Singleton.Instance.currGameState = 
+                            Singleton.Gamestates.playing;
+                    }
+
+                    break;
+
+                case Singleton.Gamestates.playing:
+
+                    // handled through OnCollision call
+
+                    break;
+
+                case Singleton.Gamestates.death:
+
+                    if (Singleton.Instance.keyboardState.IsKeyDown(Keys.Enter))
+                    {
+                        Singleton.Instance.currGameState =
+                            Singleton.Gamestates.playing;
+                    }
+
+                    break;
+            }
 
             base.Update(gameTime);
         }
@@ -132,39 +200,69 @@ namespace _3D_Prototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Gray);
 
             /* HOW TO DRAW 3D MODELS:
             To draw any 3D Model simply call the
             DrawModel(Model _model, Vector3 _modelPosition) method
             located in the Camera class and accesable through
             the SingletonInstance.camera variable. */
-            
+
 
             // TODO: Add your drawing code here
 
+            // GameState based Draw
+            switch (Singleton.Instance.currGameState)
+            {
+                case Singleton.Gamestates.start:
 
-            // 3D Stuff
+                    // 2D Stuff
+                    Singleton.Instance.spriteBatch.Begin();
 
-            // Ground
-            Singleton.Instance.ground.Draw();
-            //Singleton.Instance.camera.DrawModel(exampleCube, new Vector3(0, 50, 0));
+                    // Start screen
+                    Singleton.Instance.startScreen.Draw();
 
-            // Player
-            Singleton.Instance.playerCube.Draw();
+                    Singleton.Instance.spriteBatch.End();
 
-            // Obstacles
-            Singleton.Instance.currObstacleMap.Draw();
+                    break;
+
+                case Singleton.Gamestates.playing:
+
+                    // 3D Stuff
+
+                    // Ground
+                    Singleton.Instance.ground.Draw();
+
+                    // Player
+                    Singleton.Instance.playerCube.Draw();
+
+                    // Obstacles
+                    Singleton.Instance.currObstacleMap.Draw();
 
 
-            // 2D Stuff
-            Singleton.Instance.spriteBatch.Begin();
+                    // 2D Stuff
+                    Singleton.Instance.spriteBatch.Begin();
+
+                    // HighScoreSystem
+                    Singleton.Instance.highScoreSystem.Draw();
+
+                    Singleton.Instance.spriteBatch.End();
+
+                    break;
+
+                case Singleton.Gamestates.death:
+
+                    // 2D Stuff
+                    Singleton.Instance.spriteBatch.Begin();
+
+                    // Death screen
+                    Singleton.Instance.deathScreen.Draw();
+
+                    Singleton.Instance.spriteBatch.End();
+
+                    break;
+            }
             
-            // HighScoreSystem
-            Singleton.Instance.highScoreSystem.Draw();
-
-            Singleton.Instance.spriteBatch.End();
-
 
             // Resetting rendering to be able to use 3D again
             GraphicsDevice.BlendState = BlendState.Opaque;

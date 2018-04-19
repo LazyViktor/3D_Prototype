@@ -12,6 +12,7 @@ namespace _3D_Prototype
     class PlayerCube
     {
         public Vector3 PlayerPosition { get; private set; }
+        Vector3 startPosition;
 
         public Model PlayerModel { private get; set; }
 
@@ -34,10 +35,20 @@ namespace _3D_Prototype
             // Adjusted to make the ground total 0 and
             // to stop model clipping halfway through ground.
             PlayerPosition = _playerPosition + new Vector3(0, Size/2, 0);
+            startPosition = PlayerPosition;
 
             maxJumpHeightFactored *= Size;
         }
         
+
+        public void Reset()
+        {
+            // called on death
+            PlayerPosition = startPosition;
+            currMoveSpeed = 0f;
+            isJumping = false;
+        }
+
 
         public void Update()
         {

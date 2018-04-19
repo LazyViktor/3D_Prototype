@@ -101,3 +101,24 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/HighScoreFont.spritefont
 
+#begin Fonts/GameTitleFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/GameTitleFont.spritefont
+
+#begin Fonts/NormalFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/NormalFont.spritefont
+
+#begin Fonts/HeadingsFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/HeadingsFont.spritefont
+

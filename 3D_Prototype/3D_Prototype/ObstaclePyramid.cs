@@ -49,6 +49,21 @@ namespace _3D_Prototype
         public void OnCollision()
         {
             // TODO: call death method to reset level and show death screen
+            Singleton.Instance.currGameState = Singleton.Gamestates.death;
+
+            //// Reset GameObjects
+
+            // Player
+            Singleton.Instance.playerCube.Reset();
+
+            // ObstacleMap
+            Singleton.Instance.currObstacleMap.Reset();
+
+            // Ground
+            Singleton.Instance.ground.Reset();
+
+            // HighscoreSystem
+            Singleton.Instance.highScoreSystem.Reset();
         }
 
 

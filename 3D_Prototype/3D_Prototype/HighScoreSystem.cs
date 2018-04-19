@@ -39,6 +39,15 @@ namespace _3D_Prototype
         }
 
 
+        public void Reset()
+        {
+            // call on death
+
+            currScoreNum = 0;
+            currScoreText = "";
+        }
+
+
         public void AddPoints()
         {
             // add points for passing one obstacle

@@ -30,12 +30,34 @@ namespace _3D_Prototype
         public PlayerCube playerCube;
         public ObstacleMap currObstacleMap;
 
+        // GameStates
+        public enum Gamestates
+        {
+            start,
+            playing,
+            death
+        }
+        public Gamestates currGameState;
+
         // MapData
             // 0 for empty space, 1 for Pyramid
-        public int[] mapDataA = new int[] { 0, 1, 0, 1, 0, 1 };
+        public int[] MapDataA { get; } 
+            = new int[] { 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0 };
+        public int[] MapDataB { get; } 
+            = new int[] { 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0 };
+        public int[] MapDataC { get; } 
+            = new int[] { 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0};
+        public int[] MapDataD { get; } 
+            = new int[] { 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0 };
+        public int[] MapDataE { get; } 
+            = new int[] { 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0 };
 
         // HighScoreSystem
         public HighScoreSystem highScoreSystem;
+
+        // Screens
+        public StartScreen startScreen;
+        public DeathScreen deathScreen;
 
         // Models
         public Model obstaclePyramidModel;
