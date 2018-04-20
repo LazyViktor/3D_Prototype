@@ -44,7 +44,7 @@ namespace _3D_Prototype
             // call on death
 
             currScoreNum = 0;
-            currScoreText = "";
+            currScoreText = "0";
         }
 
 
