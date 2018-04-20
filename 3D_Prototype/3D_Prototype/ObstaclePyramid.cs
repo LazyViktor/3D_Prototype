@@ -17,6 +17,11 @@ namespace _3D_Prototype
 
         float size = 100f;
 
+        Line leftSide = new Line();
+        Line rightSide = new Line();
+
+        Line playerBottomSide = new Line();
+
 
         public ObstaclePyramid(Vector3 _obstaclePosition, Model _obstacleModel)
         {
@@ -27,6 +32,22 @@ namespace _3D_Prototype
             // to stop model clipping halfway through ground.
             ObstaclePosition = new Vector3(_obstaclePosition.X,
                 _obstaclePosition.Y + size / 2, _obstaclePosition.Z);
+
+            //// edit side lines
+            // bottom left point
+            leftSide.x1 = ObstaclePosition.X - size / 2;
+            leftSide.y1 = ObstaclePosition.Y - size / 2;
+
+            // bottom right point
+            rightSide.x1 = ObstaclePosition.X + size / 2;
+            rightSide.y1 = ObstaclePosition.Y - size / 2;
+
+            // top points
+            leftSide.x2 = ObstaclePosition.X;
+            leftSide.y2 = ObstaclePosition.Y + size / 2;
+
+            rightSide.x2 = ObstaclePosition.X;
+            rightSide.y2 = ObstaclePosition.Y + size / 2;
         }
 
 
@@ -35,14 +56,51 @@ namespace _3D_Prototype
             Vector3 playerPosition = Singleton.Instance.playerCube.PlayerPosition;
             float playerSize = Singleton.Instance.playerCube.Size;
 
-            // check for player Collision
-            if(playerPosition.X + playerSize / 2 >= ObstaclePosition.X - size / 2 
+            //// edit player bottom side line
+            // bottom left point
+            playerBottomSide.x1 = playerPosition.X - playerSize / 2;
+            playerBottomSide.y1 = playerPosition.Y - playerSize / 2;
+            // bottom right point
+            playerBottomSide.x2 = playerPosition.X + playerSize / 2;
+            playerBottomSide.y2 = playerPosition.Y - playerSize / 2;
+
+            //// check for simple player Collision
+            //if(playerPosition.X + playerSize / 2 >= ObstaclePosition.X - size / 2 
+            //    && playerPosition.X - playerSize / 2 <= ObstaclePosition.X + size / 2
+            //    && playerPosition.Y - playerSize / 2 <= ObstaclePosition.Y + size / 2)
+            //{
+            //    // ObstaclePyramid is treated like a cube for Collison
+            //    this.OnCollision();
+            //}
+
+            // check for player optimised Collision
+            if (playerPosition.X + playerSize / 2 >= ObstaclePosition.X - size / 2
                 && playerPosition.X - playerSize / 2 <= ObstaclePosition.X + size / 2
                 && playerPosition.Y - playerSize / 2 <= ObstaclePosition.Y + size / 2)
             {
-                // ObstaclePyramid is treated like a cube for Collison
-                this.OnCollision();
+
+                // find intersection point
+                Point intersectionPoint;
+                if(playerPosition.X > ObstaclePosition.X)
+                {
+                    // right side
+                    intersectionPoint = LineIntersection.FindIntersection(rightSide, playerBottomSide);
+                }
+                else
+                {
+                    // left side
+                    intersectionPoint = LineIntersection.FindIntersection(leftSide, playerBottomSide);
+                }
+
+                // check if intersectionPoint in on actual player model
+                if(intersectionPoint.x >= playerBottomSide.x1 
+                    && intersectionPoint.x <= playerBottomSide.x2)
+                {
+                    this.OnCollision();
+                }
+                
             }
+
         }
 
 

@@ -12,7 +12,7 @@ namespace _3D_Prototype
     class HighScoreSystem
     {
         int currScoreNum = 0;
-        string currScoreText = "";
+        public string currScoreText = "0";
 
         int scorePerObstacle = 200;
 

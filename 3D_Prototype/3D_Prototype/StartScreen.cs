@@ -25,7 +25,7 @@ namespace _3D_Prototype
         Vector2 gameTitlePosition;
         Vector2 gameTitleOrigin;
         Color gameTitleFontColor = Color.OrangeRed;
-        string gameTitleText = "GameTitle";
+        string gameTitleText = "Obstacle Run";
 
         // Normal font for descriptions etc
             // Load in Game1 Content.Load<SpriteFont<>

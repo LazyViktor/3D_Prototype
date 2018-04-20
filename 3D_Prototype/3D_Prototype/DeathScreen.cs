@@ -41,9 +41,11 @@ namespace _3D_Prototype
         string failText = "FAIL";
         // game description
         string explanationText
-            = "Dont touch the obstacles!";
+            = "Your Score: " + "000000"
+            + Environment.NewLine +"Dont touch the obstacles!";
         Vector2 explanationPosition;
         Vector2 explanationOrigin;
+        
 
         // restart promt
         string restartPromtText
@@ -87,6 +89,15 @@ namespace _3D_Prototype
                 viewport.Y + viewport.Height / 10 * 7);
 
         }
+
+
+        public void Update()
+        {
+            explanationText
+            = "Your Score: " + Singleton.Instance.highScoreSystem.currScoreText
+            + Environment.NewLine + "Dont touch the obstacles!";
+        }
+
 
         public void AssigneTextOrigins()
         {

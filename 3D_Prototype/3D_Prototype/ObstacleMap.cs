@@ -14,7 +14,7 @@ namespace _3D_Prototype
         public LinkedList<ObstaclePyramid> ObstacleList { get; private set; }
             = new LinkedList<ObstaclePyramid>();
         
-        float slotSize = 150f;
+        float slotSize = 200f;
 
         float startingPositionX;
 

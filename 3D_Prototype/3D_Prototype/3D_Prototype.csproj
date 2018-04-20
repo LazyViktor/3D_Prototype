@@ -46,6 +46,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="HighScoreSystem.cs" />
+    <Compile Include="LineIntersection.cs" />
     <Compile Include="ObstacleMap.cs" />
     <Compile Include="ObstaclePyramid.cs" />
     <Compile Include="PlayerCube.cs" />

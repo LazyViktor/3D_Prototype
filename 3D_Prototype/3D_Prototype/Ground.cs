@@ -56,7 +56,7 @@ namespace _3D_Prototype
         {
             // call on death
             floorVerts = startfloorVerts;
-            endlessCounter = 1;
+            endlessCounter = 0;
         }
 
 

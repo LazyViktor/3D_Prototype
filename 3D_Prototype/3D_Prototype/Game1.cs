@@ -15,7 +15,7 @@ namespace _3D_Prototype
         public Game1()
         {
             Singleton.Instance.graphics = new GraphicsDeviceManager(this);
-            // Singleton.Instance.graphics.IsFullScreen = true;
+            Singleton.Instance.graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
         }
@@ -41,7 +41,7 @@ namespace _3D_Prototype
             Singleton.Instance.currObstacleMap = new ObstacleMap(500f);
 
             // Ground
-            Singleton.Instance.ground = new Ground(20);
+            Singleton.Instance.ground = new Ground(30);
 
             // HighScoreSystem
             Singleton.Instance.highScoreSystem = new HighScoreSystem();
@@ -141,22 +141,25 @@ namespace _3D_Prototype
                 case Singleton.Gamestates.start:
                     break;
                 case Singleton.Gamestates.playing:
+
+                    // Player
+                    Singleton.Instance.playerCube.Update();
+
+                    // DeathScreen
+                    Singleton.Instance.deathScreen.Update();
+
+                    // Obstacles
+                    Singleton.Instance.currObstacleMap.Update();
+
+                    // Ground
+                    Singleton.Instance.ground.Update();
                     
-                        // Player
-                        Singleton.Instance.playerCube.Update();
+                    // Camera
+                    Singleton.Instance.camera.Update(
+                        Singleton.Instance.playerCube.PlayerPosition.X);
 
-                        // Obstacles
-                        Singleton.Instance.currObstacleMap.Update();
+                    break;
 
-                        // Ground
-                        Singleton.Instance.ground.Update();
-
-                        // Camera
-                        Singleton.Instance.camera.Update(
-                            Singleton.Instance.playerCube.PlayerPosition.X);
-
-                        break;
-                    
                 case Singleton.Gamestates.death:
                     break;
             }
